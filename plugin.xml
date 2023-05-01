@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-fullstory" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>FullStory</name>
+    <platform name="ios">
+        <hook src="src/extendBuildPhase.js" type="after_platform_add" />
+        <podspec>
+            <pods>
+                <pod name="FullStory" options=":http => 'https://ios-releases.fullstory.com/fullstory-1.37.0-xcframework.tar.gz'"/>
+            </pods>
+        </podspec>
+    </platform>
+</plugin>

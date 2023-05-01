@@ -1,0 +1,20 @@
+{
+  "name": "cordova-plugin-fullstory",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-fullstory",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xcode": "^3.0.1"
+  }
+}
