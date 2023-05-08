@@ -12,9 +12,11 @@
         </podspec>
     </platform>
     <platform name="android">
+        <preference name="FULLSTORY_SERVER_URL" default="https://fullstory.com"/>
         <config-file target="res/xml/config.xml" parent="/*">
             <preference name="fs_version" value="$FULLSTORY_VERSION" />
             <preference name="fs_org" value="$FULLSTORY_ORG" /> 
+            <preference name="fs_server_url" value="$FULLSTORY_SERVER_URL" /> 
         </config-file>
 
         <framework src="src/android/plugin.gradle" custom="true" type="gradleReference"/>

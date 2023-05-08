@@ -3,7 +3,7 @@ apply plugin: 'fullstory'
 fullstory {
     org 'fs_org'
     enabledVariants 'all'
-    serverUrl 'https://staging.fullstory.com'
+    serverUrl 'server_url'
     logLevel 'log'
 }
 

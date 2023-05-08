@@ -4,7 +4,8 @@ const fs = require("fs");
 const rewriteFSGradleSettings = (gradlePath, fsConfig) => {
   const result = fs
     .readFileSync(gradlePath, "utf8")
-    .replace(/fs_org/g, fsConfig.org);
+    .replace(/fs_org/g, fsConfig.org)
+    .replace(/server_url/g, fsConfig.serverUrl);
 
   fs.writeFileSync(gradlePath, result);
   console.log("updated FullStory configurations at " + gradlePath);
@@ -118,6 +119,7 @@ module.exports = function (context) {
   const fsConfig = {
     version: config.getPreference("fs_version"),
     org: config.getPreference("fs_org"),
+    serverUrl: config.getPreference("fs_server_url"),
   };
 
   console.log("FullStory configurations:", fsConfig);
