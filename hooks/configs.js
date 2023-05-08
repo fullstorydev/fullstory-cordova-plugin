@@ -4,8 +4,7 @@ const fs = require("fs");
 const rewriteFSGradleSettings = (gradlePath, fsConfig) => {
   const result = fs
     .readFileSync(gradlePath, "utf8")
-    .replace(/fs_org/g, fsConfig.org)
-    .replace(/fs_version/g, fsConfig.version);
+    .replace(/fs_org/g, fsConfig.org);
 
   fs.writeFileSync(gradlePath, result);
   console.log("updated FullStory configurations at " + gradlePath);
@@ -93,11 +92,15 @@ module.exports = function (context) {
   );
   const config = new ConfigParser(configPath);
 
+  const androidAppNameComponents = config.packageName().split(".");
+  const androidAppName =
+    androidAppNameComponents[androidAppNameComponents.length - 1];
+
   const gradleExtrasPath = path.join(
     projectRoot,
-    "plugins",
+    platformRoot,
     "cordova-plugin-fullstory",
-    "src/android/plugin.gradle"
+    `${androidAppName}-plugin.gradle`
   );
 
   const projectGradlePath = path.join(
