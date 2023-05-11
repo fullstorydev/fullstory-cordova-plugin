@@ -19,6 +19,10 @@ const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
   let match = regex.exec(fileContents);
 
   if (match != null) {
+    if (fileContents.includes("com.fullstory:gradle-plugin-local")) {
+      console.log("Gradle already contains FullStory dependency, skipping.");
+      return;
+    }
     let insertLocation = match.index + match[0].length;
     fileContents =
       fileContents.substring(0, insertLocation) +
@@ -69,7 +73,11 @@ const rewriteProjectGradleRepositories = (gradlePath, repositoriesPath) => {
       "updated " + gradlePath + " to include repository " + repository
     );
   } else {
-    console.error("unable to insert repository " + repository);
+    console.error(
+      "unable to insert respository " +
+        repository +
+        ". You may have already included the maven FullStory repo."
+    );
   }
 };
 

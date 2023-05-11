@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-fullstory" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>FullStory</name>
-    <preference name="FULLSTORY_VERSION" />
+    <preference name="FULLSTORY_VERSION" default="1.37.0" />
     <platform name="ios">
         <hook src="hooks/iosExtendBuildPhase.js" type="before_build" />
         <hook src="hooks/iosPodfileConfig.js" type="before_build" />
