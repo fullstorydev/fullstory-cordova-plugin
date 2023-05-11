@@ -2,17 +2,21 @@
 <plugin id="cordova-plugin-fullstory" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>FullStory</name>
     <preference name="FULLSTORY_VERSION" />
-    <preference name="FULLSTORY_ORG" /> 
     <platform name="ios">
-        <hook src="src/extendBuildPhase.js" type="after_platform_add" />
+        <hook src="hooks/iosExtendBuildPhase.js" type="before_build" />
+        <hook src="hooks/iosPodfileConfig.js" type="before_build" />
+        <config-file target="config.xml" parent="/*">
+            <preference name="fs_version" value="$FULLSTORY_VERSION" />    
+        </config-file>
         <podspec>
             <pods>
-                <pod name="FullStory" options=":http => 'https://ios-releases.fullstory.com/fullstory-1.37.0-xcframework.tar.gz'"/>
+                <pod name="FullStory" http="https://ios-releases.fullstory.com/fullstory-fs_version-xcframework.tar.gz"/>
             </pods>
         </podspec>
     </platform>
     <platform name="android">
         <preference name="FULLSTORY_SERVER_URL" default="https://fullstory.com"/>
+        <preference name="FULLSTORY_ORG" />
         <config-file target="res/xml/config.xml" parent="/*">
             <preference name="fs_version" value="$FULLSTORY_VERSION" />
             <preference name="fs_org" value="$FULLSTORY_ORG" /> 
@@ -25,6 +29,6 @@
         </edit-config>
 
         <source-file src="src/android/MainApplication.java" target-dir="src/com/fullstory/cordova/plugin/" />
-        <hook type="before_build" src="hooks/configs.js" />
+        <hook type="before_build" src="hooks/androidGradleConfig.js" />
     </platform>
 </plugin>
