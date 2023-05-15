@@ -40,7 +40,7 @@ module.exports = function (context) {
     .readFileSync(podfilePath, "utf8")
     .replace(
       /pod 'FullStory'/g,
-      `pod 'FullStory', :http => 'https://ios-releases.fullstory.com/fullstory-${fsVersion}-xcframework.tar.gz`
+      `pod 'FullStory', :http => 'https://ios-releases.fullstory.com/fullstory-${fsVersion}-xcframework.tar.gz'`
     );
 
   fs.writeFileSync(podfilePath, result);
