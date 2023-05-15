@@ -8,7 +8,7 @@ const rewriteFSGradleSettings = (gradlePath, fsConfig) => {
     .replace(/server_url/g, fsConfig.serverUrl);
 
   fs.writeFileSync(gradlePath, result);
-  console.log("updated FullStory configurations at " + gradlePath);
+  console.log("Updated FullStory configurations at " + gradlePath);
 };
 
 const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
@@ -31,54 +31,87 @@ const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
       fileContents.substring(insertLocation);
     fs.writeFileSync(gradlePath, fileContents, "utf8");
     console.log(
-      "updated " + gradlePath + " to include dependency " + dependency
+      "Updated " + gradlePath + " to include dependency " + dependency
     );
   } else {
-    console.error("unable to insert dependency " + dependency);
+    console.error("Unable to insert dependency " + dependency);
   }
 };
 
-const rewriteProjectGradleRepositories = (gradlePath, repositoriesPath) => {
-  if (!fs.existsSync(repositoriesPath)) {
-    console.error("File not found: ", repositoriesPath);
+const rewriteProjectGradleRepositories = (
+  projectRepositoriesPath,
+  appRepositoriesPath
+) => {
+  if (!fs.existsSync(projectRepositoriesPath)) {
+    console.error("File not found: ", projectRepositoriesPath);
+    return;
+  } else if (!fs.existsSync(appRepositoriesPath)) {
+    console.error("File not found: ", appRepositoriesPath);
     return;
   }
 
   const repository = 'maven { url "https://maven.fullstory.com" }';
 
-  let gradleFileContents = fs.readFileSync(gradlePath, "utf8");
-  let repoFileContents = fs.readFileSync(repositoriesPath, "utf8");
+  let projectRepoFileContents = fs.readFileSync(
+    projectRepositoriesPath,
+    "utf8"
+  );
+  let appRepoFileContents = fs.readFileSync(appRepositoriesPath, "utf8");
 
-  const repoRegex = /{([\S\s]*)}/g;
-  const gradleRegex = /\brepos\b.*/g;
+  const repoRegex = "ext.repos = {.*";
 
-  let gradleMatch = gradleRegex.exec(gradleFileContents);
-  let repoMatch = repoFileContents.match(repoRegex);
+  const projectRepoMatch = new RegExp(repoRegex, "g").exec(
+    projectRepoFileContents
+  );
 
-  if (repoFileContents.match(repoRegex) != null && gradleMatch != null) {
-    let repositoriesToWrite = repoMatch[0];
-    repositoriesToWrite =
-      repositoriesToWrite.slice(0, repositoriesToWrite.length - 1) +
-      repository +
-      "\n" +
-      repositoriesToWrite.slice(repositoriesToWrite.length - 1);
+  const appRepoMatch = new RegExp(repoRegex, "g").exec(appRepoFileContents);
 
-    gradleFileContents = gradleFileContents.replace(
-      /repos\b/,
-      repositoriesToWrite
-    );
+  // Check if repositories.gradle exists and contains Regex
+  if (projectRepoMatch == null || appRepoMatch == null) {
+    console.error("Unable to insert respository " + repository);
+    return;
+  }
 
-    fs.writeFileSync(gradlePath, gradleFileContents, "utf8");
-    console.log(
-      "updated " + gradlePath + " to include repository " + repository
-    );
-  } else {
+  // Check if FS repository already exists in repositories.gradle
+  if (
+    projectRepoFileContents.match(projectRepoMatch) != null ||
+    appRepoFileContents.match(appRepoMatch) != null
+  ) {
     console.error(
-      "unable to insert respository " +
+      "Unable to insert respository " +
         repository +
         ". You may have already included the maven FullStory repo."
     );
+    return;
   }
+
+  const projectRepoInsertLocation =
+    projectRepoMatch.index + projectRepoMatch[0].length;
+  const appRepoInsertLocation = appRepoMatch.index + appRepoMatch[0].length;
+
+  projectRepoFileContents =
+    projectRepoFileContents.substring(0, projectRepoInsertLocation) +
+    "\n" +
+    repository +
+    projectRepoFileContents.substring(projectRepoInsertLocation);
+
+  appRepoFileContents =
+    appRepoFileContents.substring(0, appRepoInsertLocation) +
+    "\n" +
+    repository +
+    appRepoFileContents.substring(appRepoInsertLocation);
+
+  fs.writeFileSync(projectRepositoriesPath, projectRepoFileContents, "utf8");
+  console.log(
+    "Updated " +
+      projectRepositoriesPath +
+      " to include repository " +
+      repository
+  );
+  fs.writeFileSync(appRepositoriesPath, appRepoFileContents, "utf8");
+  console.log(
+    "Updated " + appRepositoriesPath + " to include repository " + repository
+  );
 };
 
 module.exports = function (context) {
@@ -124,6 +157,13 @@ module.exports = function (context) {
     "repositories.gradle"
   );
 
+  const appRepositoriesPath = path.join(
+    projectRoot,
+    platformRoot,
+    "app",
+    "repositories.gradle"
+  );
+
   const fsConfig = {
     version: config.getPreference("fs_version"),
     org: config.getPreference("fs_org"),
@@ -134,6 +174,9 @@ module.exports = function (context) {
 
   rewriteFSGradleSettings(gradleExtrasPath, fsConfig);
   rewriteProjectGradleDependencies(projectGradlePath, fsConfig);
-  rewriteProjectGradleRepositories(projectGradlePath, projectRepositoriesPath);
+  rewriteProjectGradleRepositories(
+    projectRepositoriesPath,
+    appRepositoriesPath
+  );
   return;
 };
