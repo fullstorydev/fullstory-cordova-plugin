@@ -1,19 +1,27 @@
 {
   "name": "cordova-plugin-fullstory",
   "version": "0.0.1",
-  "description": "",
+  "description": "FullStory plugin for Apache Cordova",
   "cordova": {
     "id": "cordova-plugin-fullstory",
     "platforms": [
+      "android",
       "ios"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullstorydev/cordova-plugin-fullstory"
+  },
   "keywords": [
     "ecosystem:cordova",
-    "cordova-ios"
+    "cordova-ios",
+    "cordova-android",
+    "fullstory",
+    "cordova"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "FullStory",
+  "license": "MIT",
   "dependencies": {
     "xcode": "^3.0.1"
   }
