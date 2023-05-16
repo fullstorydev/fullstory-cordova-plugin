@@ -74,8 +74,8 @@ const rewriteProjectGradleRepositories = (
 
   // Check if FS repository already exists in repositories.gradle
   if (
-    projectRepoFileContents.match(projectRepoMatch) != null ||
-    appRepoFileContents.match(appRepoMatch) != null
+    projectRepoFileContents.match(repository) != null ||
+    appRepoFileContents.match(repository) != null
   ) {
     console.error(
       "Unable to insert respository " +
