@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-fullstory",
+  "name": "@fullstory/cordova-plugin",
   "version": "0.0.1",
   "description": "FullStory plugin for Apache Cordova",
   "cordova": {
-    "id": "cordova-plugin-fullstory",
+    "id": "@fullstory/cordova-plugin",
     "platforms": [
       "android",
       "ios"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fullstorydev/cordova-plugin-fullstory"
+    "url": "https://github.com/fullstorydev/fullstory-cordova-plugin"
   },
   "keywords": [
     "ecosystem:cordova",
