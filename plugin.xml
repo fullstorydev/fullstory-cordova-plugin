@@ -9,8 +9,10 @@
             <preference name="fs_version" value="$FULLSTORY_VERSION" />    
         </config-file>
         <podspec>
+            <config>
+            </config>
             <pods>
-                <pod name="FullStory" http="https://ios-releases.fullstory.com/fullstory-fs_version-xcframework.tar.gz"/>
+                <pod name="FullStory" />
             </pods>
         </podspec>
     </platform>
