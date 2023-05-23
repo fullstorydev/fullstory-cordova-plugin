@@ -5,7 +5,10 @@ const rewriteFSGradleSettings = (gradlePath, fsConfig) => {
   const result = fs
     .readFileSync(gradlePath, "utf8")
     .replace(/fs_org/g, fsConfig.org)
-    .replace(/server_url/g, fsConfig.serverUrl);
+    .replace(/fs_server_url/g, fsConfig.serverUrl)
+    .replace(/fs_enabled_variants/g, fsConfig.enabledVariants)
+    .replace(/fs_log_level/g, fsConfig.logLevel)
+    .replace(/fs_record_on_start/g, fsConfig.recordOnStart);
 
   fs.writeFileSync(gradlePath, result);
   console.log("Updated FullStory configurations at " + gradlePath);
@@ -168,6 +171,9 @@ module.exports = function (context) {
     version: config.getPreference("fs_version"),
     org: config.getPreference("fs_org"),
     serverUrl: config.getPreference("fs_server_url"),
+    enabledVariants: config.getPreference("fs_enabled_variants"),
+    logLevel: config.getPreference("fs_log_level"),
+    recordOnStart: config.getPreference("fs_record_on_start") === "true",
   };
 
   console.log("FullStory configurations:", fsConfig);

@@ -2,8 +2,9 @@ apply plugin: 'fullstory'
 
 fullstory {
     org 'fs_org'
-    enabledVariants 'all'
-    serverUrl 'server_url'
-    logLevel 'log'
+    enabledVariants 'fs_enabled_variants'
+    serverUrl 'fs_server_url'
+    logLevel 'fs_log_level'
+    recordOnStart fs_record_on_start
 }
 
