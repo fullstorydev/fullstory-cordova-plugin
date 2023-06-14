@@ -36,9 +36,6 @@
         </config-file>
 
         <framework src="src/android/plugin.gradle" custom="true" type="gradleReference"/>
-        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
-            <application android:name="com.fullstory.cordova.plugin.MainApplication"/>
-        </edit-config>
 
         <source-file src="src/android/MainApplication.java" target-dir="src/com/fullstory/cordova/plugin/" />
         <hook type="before_build" src="hooks/androidGradleConfig.js" />
