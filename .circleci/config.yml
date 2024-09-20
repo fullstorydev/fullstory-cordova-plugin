@@ -5,7 +5,7 @@ version: 2.1
 executors:
   browser-executor:
     docker:
-      - image: circleci/node:16-browsers
+      - image: cimg/node:16.20.2-browsers
     working_directory: ~/repo
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
