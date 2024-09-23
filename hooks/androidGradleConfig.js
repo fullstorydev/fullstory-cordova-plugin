@@ -137,9 +137,16 @@ module.exports = function (context) {
   );
   const config = new ConfigParser(configPath);
 
-  const androidAppNameComponents = config.packageName().split(".");
-  const androidAppName =
-    androidAppNameComponents[androidAppNameComponents.length - 1];
+  // packagename validated by Cordova
+  // https://github.com/apache/cordova-android/blob/5eddc460e49a5b8ce2bcc43d0a22fe4511842085/lib/create.js#L216
+  const androidPackageName =
+    config.android_packageName() || config.packageName();
+
+  // derive project name
+  // https://github.com/apache/cordova-android/blob/5eddc460e49a5b8ce2bcc43d0a22fe4511842085/lib/config/CordovaGradleConfigParser.js#L57
+  const androidAppName = androidPackageName.substring(
+    androidPackageName.lastIndexOf(".") + 1
+  );
 
   const gradleExtrasPath = path.join(
     projectRoot,
