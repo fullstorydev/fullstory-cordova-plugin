@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const resolveIosConfigPath = require("./resolveIosConfigPath");
 
 module.exports = function (context) {
   const opts = context.opts || {};
@@ -22,17 +23,8 @@ module.exports = function (context) {
 
   const ConfigParser =
     context.requireCordovaModule("cordova-common").ConfigParser;
-  const rootConfigPath = path.resolve(projectRoot, "config.xml");
-  const rootConfig = new ConfigParser(rootConfigPath);
-  const appName = rootConfig.name();
 
-  const iosConfigPath = path.resolve(
-    projectRoot,
-    platformRoot,
-    appName,
-    "config.xml"
-  );
-
+  const iosConfigPath = resolveIosConfigPath(context, ConfigParser);
   const iosConfig = new ConfigParser(iosConfigPath);
   const fsVersion = iosConfig.getPreference("fs_version");
 
