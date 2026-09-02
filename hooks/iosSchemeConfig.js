@@ -12,7 +12,7 @@ module.exports = function (context) {
   const projectRoot = opts.projectRoot;
 
   if ("string" != typeof projectRoot) {
-    console.error("Invalid project root, aborting FullStory plugin");
+    console.error("Invalid project root, aborting Fullstory plugin");
     return;
   }
 
