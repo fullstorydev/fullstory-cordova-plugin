@@ -62,6 +62,6 @@ module.exports = function (context) {
   iosConfig.write();
 
   console.log(
-    `FullStory plugin: set \`scheme\` preference to "${defaultScheme}" to match cordova-ios@${cordovaIosVersion}'s actual runtime default.`
+    `Fullstory plugin: set \`scheme\` preference to "${defaultScheme}" to match cordova-ios@${cordovaIosVersion}'s actual runtime default.`
   );
 };
