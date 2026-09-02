@@ -1,7 +1,5 @@
 # @fullstory/cordova-plugin
 
-[![CircleCI](https://circleci.com/gh/fullstorydev/fullstory-cordova-plugin.svg?style=svg)](https://circleci.com/gh/fullstorydev/fullstory-cordova-plugin)
-
 This plugin provides native integration with FullStory in your Cordova app(s). It bundles the native FullStory SDK for iOS and Android and exposes a small JavaScript API for controlling capture from within your app.
 
 ## Quick Links
