@@ -151,7 +151,7 @@ module.exports = function (context) {
   const gradleExtrasPath = path.join(
     projectRoot,
     platformRoot,
-    "fullstory-cordova-plugin",
+    "@fullstory/cordova-plugin",
     `${androidAppName}-plugin.gradle`
   );
 

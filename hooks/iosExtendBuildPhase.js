@@ -9,7 +9,7 @@ const myProj = xcode.project(projectPath);
 var options = {
   shellPath: "/bin/sh",
   shellScript:
-    '"${PODS_ROOT}/FullStory/tools/FullStoryCommandLine" "${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}"',
+    '"${PODS_ROOT}/FullStory/tools/FullStoryCommandLine" "${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}" "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"',
 };
 
 myProj.parse(function (err) {
@@ -22,7 +22,7 @@ myProj.parse(function (err) {
     "PBXShellScriptBuildPhase",
     "Run FullStory Asset Uploader",
     myProj.getFirstTarget().uuid,
-    options
+    options,
   );
   fs.writeFileSync(projectPath, myProj.writeSync());
 });
