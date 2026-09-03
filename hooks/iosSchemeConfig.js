@@ -23,7 +23,9 @@ module.exports = function (context) {
   const iosConfig = new ConfigParser(iosConfigPath);
 
   if (iosConfig.getPreference("scheme")) {
-    console.log("config.xml already specifies an explicit `scheme` preference, skipping.");
+    console.log(
+      "config.xml already specifies an explicit `scheme` preference, skipping.",
+    );
     return;
   }
 
@@ -31,17 +33,17 @@ module.exports = function (context) {
     projectRoot,
     "node_modules",
     "cordova-ios",
-    "package.json"
+    "package.json",
   );
 
   let cordovaIosVersion;
   try {
     cordovaIosVersion = JSON.parse(
-      fs.readFileSync(cordovaIosPackagePath, "utf8")
+      fs.readFileSync(cordovaIosPackagePath, "utf8"),
     ).version;
   } catch (err) {
     console.error(
-      `Unable to determine cordova-ios version, aborting FullStory scheme preference fix: ${err}`
+      `Unable to determine cordova-ios version, aborting Fullstory scheme preference fix: ${err}`,
     );
     return;
   }
@@ -50,7 +52,7 @@ module.exports = function (context) {
 
   if (isNaN(majorVersion)) {
     console.error(
-      `Unable to parse cordova-ios version "${cordovaIosVersion}", aborting FullStory scheme preference fix.`
+      `Unable to parse cordova-ios version "${cordovaIosVersion}", aborting Fullstory scheme preference fix.`,
     );
     return;
   }
@@ -62,6 +64,6 @@ module.exports = function (context) {
   iosConfig.write();
 
   console.log(
-    `Fullstory plugin: set \`scheme\` preference to "${defaultScheme}" to match cordova-ios@${cordovaIosVersion}'s actual runtime default.`
+    `Fullstory plugin: set \`scheme\` preference to "${defaultScheme}" to match cordova-ios@${cordovaIosVersion}'s actual runtime default.`,
   );
 };

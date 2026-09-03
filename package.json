@@ -1,7 +1,7 @@
 {
   "name": "@fullstory/cordova-plugin",
   "version": "1.2.3",
-  "description": "FullStory plugin for Apache Cordova",
+  "description": "Fullstory plugin for Apache Cordova",
   "cordova": {
     "id": "@fullstory/cordova-plugin",
     "platforms": [
@@ -20,7 +20,7 @@
     "fullstory",
     "cordova"
   ],
-  "author": "FullStory",
+  "author": "Fullstory",
   "license": "MIT",
   "dependencies": {
     "xcode": "^3.0.1"
