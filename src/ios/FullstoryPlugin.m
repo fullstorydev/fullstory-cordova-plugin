@@ -1,10 +1,10 @@
 #import <Cordova/CDV.h>
 #import <FullStory/FullStory.h>
 
-@interface FullStoryPlugin : CDVPlugin
+@interface FullstoryPlugin : CDVPlugin
 @end
 
-@implementation FullStoryPlugin
+@implementation FullstoryPlugin
 
 - (void)restart:(CDVInvokedUrlCommand *)command {
     [FS restart];

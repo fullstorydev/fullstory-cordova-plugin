@@ -7,7 +7,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class FullStoryPlugin extends CordovaPlugin {
+public class FullstoryPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("restart".equals(action)) {

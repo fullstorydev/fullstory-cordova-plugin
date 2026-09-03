@@ -15,12 +15,12 @@ var options = {
 myProj.parse(function (err) {
   if (err) {
     console.error(err);
-    throw Error(`Adding build phase failed, please contact FullStory support.`);
+    throw Error(`Adding build phase failed, please contact Fullstory support.`);
   }
   myProj.addBuildPhase(
     [],
     "PBXShellScriptBuildPhase",
-    "Run FullStory Asset Uploader",
+    "Run Fullstory Asset Uploader",
     myProj.getFirstTarget().uuid,
     options,
   );

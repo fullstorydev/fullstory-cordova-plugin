@@ -1,6 +1,6 @@
 var exec = require("cordova/exec");
 
-var PLUGIN_NAME = "FullStoryPlugin";
+var PLUGIN_NAME = "FullstoryPlugin";
 
 var FS = {
   restart: function (success, error) {

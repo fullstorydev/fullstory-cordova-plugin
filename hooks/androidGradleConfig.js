@@ -11,7 +11,7 @@ const rewriteFSGradleSettings = (gradlePath, fsConfig) => {
     .replace(/fs_record_on_start/g, fsConfig.recordOnStart);
 
   fs.writeFileSync(gradlePath, result);
-  console.log("Updated FullStory configurations at " + gradlePath);
+  console.log("Updated Fullstory configurations at " + gradlePath);
 };
 
 const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
@@ -23,7 +23,7 @@ const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
 
   if (match != null) {
     if (fileContents.includes("com.fullstory:gradle-plugin-local")) {
-      console.log("Gradle already contains FullStory dependency, skipping.");
+      console.log("Gradle already contains Fullstory dependency, skipping.");
       return;
     }
     let insertLocation = match.index + match[0].length;
@@ -34,7 +34,7 @@ const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
       fileContents.substring(insertLocation);
     fs.writeFileSync(gradlePath, fileContents, "utf8");
     console.log(
-      "Updated " + gradlePath + " to include dependency " + dependency
+      "Updated " + gradlePath + " to include dependency " + dependency,
     );
   } else {
     console.error("Unable to insert dependency " + dependency);
@@ -43,7 +43,7 @@ const rewriteProjectGradleDependencies = (gradlePath, fsConfig) => {
 
 const rewriteProjectGradleRepositories = (
   projectRepositoriesPath,
-  appRepositoriesPath
+  appRepositoriesPath,
 ) => {
   if (!fs.existsSync(projectRepositoriesPath)) {
     console.error("File not found: ", projectRepositoriesPath);
@@ -57,14 +57,14 @@ const rewriteProjectGradleRepositories = (
 
   let projectRepoFileContents = fs.readFileSync(
     projectRepositoriesPath,
-    "utf8"
+    "utf8",
   );
   let appRepoFileContents = fs.readFileSync(appRepositoriesPath, "utf8");
 
   const repoRegex = "ext.repos = {.*";
 
   const projectRepoMatch = new RegExp(repoRegex, "g").exec(
-    projectRepoFileContents
+    projectRepoFileContents,
   );
 
   const appRepoMatch = new RegExp(repoRegex, "g").exec(appRepoFileContents);
@@ -83,7 +83,7 @@ const rewriteProjectGradleRepositories = (
     console.error(
       "Unable to insert respository " +
         repository +
-        ". You may have already included the maven FullStory repo."
+        ". You may have already included the maven Fullstory repo.",
     );
     return;
   }
@@ -109,11 +109,11 @@ const rewriteProjectGradleRepositories = (
     "Updated " +
       projectRepositoriesPath +
       " to include repository " +
-      repository
+      repository,
   );
   fs.writeFileSync(appRepositoriesPath, appRepoFileContents, "utf8");
   console.log(
-    "Updated " + appRepositoriesPath + " to include repository " + repository
+    "Updated " + appRepositoriesPath + " to include repository " + repository,
   );
 };
 
@@ -123,7 +123,7 @@ module.exports = function (context) {
   const platformRoot = "platforms/android";
 
   if ("string" != typeof projectRoot) {
-    console.error("Invalid project root, aborting FullStory plugin");
+    console.error("Invalid project root, aborting Fullstory plugin");
     return;
   }
 
@@ -133,7 +133,7 @@ module.exports = function (context) {
   const configPath = path.resolve(
     projectRoot,
     platformRoot,
-    "app/src/main/res/xml/config.xml"
+    "app/src/main/res/xml/config.xml",
   );
   const config = new ConfigParser(configPath);
 
@@ -145,33 +145,33 @@ module.exports = function (context) {
   // derive project name
   // https://github.com/apache/cordova-android/blob/5eddc460e49a5b8ce2bcc43d0a22fe4511842085/lib/config/CordovaGradleConfigParser.js#L57
   const androidAppName = androidPackageName.substring(
-    androidPackageName.lastIndexOf(".") + 1
+    androidPackageName.lastIndexOf(".") + 1,
   );
 
   const gradleExtrasPath = path.join(
     projectRoot,
     platformRoot,
     "@fullstory/cordova-plugin",
-    `${androidAppName}-plugin.gradle`
+    `${androidAppName}-plugin.gradle`,
   );
 
   const projectGradlePath = path.join(
     projectRoot,
     platformRoot,
-    "build.gradle"
+    "build.gradle",
   );
 
   const projectRepositoriesPath = path.join(
     projectRoot,
     platformRoot,
-    "repositories.gradle"
+    "repositories.gradle",
   );
 
   const appRepositoriesPath = path.join(
     projectRoot,
     platformRoot,
     "app",
-    "repositories.gradle"
+    "repositories.gradle",
   );
 
   const fsConfig = {
@@ -183,13 +183,13 @@ module.exports = function (context) {
     recordOnStart: config.getPreference("fs_record_on_start") === "true",
   };
 
-  console.log("FullStory configurations:", fsConfig);
+  console.log("Fullstory configurations:", fsConfig);
 
   rewriteFSGradleSettings(gradleExtrasPath, fsConfig);
   rewriteProjectGradleDependencies(projectGradlePath, fsConfig);
   rewriteProjectGradleRepositories(
     projectRepositoriesPath,
-    appRepositoriesPath
+    appRepositoriesPath,
   );
   return;
 };

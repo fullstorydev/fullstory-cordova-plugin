@@ -8,7 +8,7 @@ module.exports = function (context) {
   const platformRoot = "platforms/ios";
 
   if ("string" != typeof projectRoot) {
-    console.error("Invalid project root, aborting FullStory plugin");
+    console.error("Invalid project root, aborting Fullstory plugin");
     return;
   }
 
@@ -17,7 +17,7 @@ module.exports = function (context) {
   let podfileContents = fs.readFileSync(podfilePath, "utf8");
 
   if (podfileContents.includes("https://ios-releases.fullstory.com")) {
-    console.log("Podfile already contains FullStory dependency, skipping.");
+    console.log("Podfile already contains Fullstory dependency, skipping.");
     return;
   }
 
@@ -32,11 +32,11 @@ module.exports = function (context) {
     .readFileSync(podfilePath, "utf8")
     .replace(
       /pod 'FullStory'/g,
-      `pod 'FullStory', :http => 'https://ios-releases.fullstory.com/fullstory-${fsVersion}-xcframework.tar.gz'`
+      `pod 'FullStory', :http => 'https://ios-releases.fullstory.com/fullstory-${fsVersion}-xcframework.tar.gz'`,
     );
 
   fs.writeFileSync(podfilePath, result);
 
-  console.log("Successfully added FullStory dependency to Podfile.");
+  console.log("Successfully added Fullstory dependency to Podfile.");
   return;
 };
