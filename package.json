@@ -1,6 +1,6 @@
 {
   "name": "@fullstory/cordova-plugin",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Fullstory plugin for Apache Cordova",
   "cordova": {
     "id": "@fullstory/cordova-plugin",
