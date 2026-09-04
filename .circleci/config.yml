@@ -64,6 +64,8 @@ workflows:
             branches:
               ignore: /.*/
       - deploy-plugin:
+          context:
+            - db8970fb-32b1-48ef-9dad-9ec8085f6b55
           requires:
             - hold
           filters:
