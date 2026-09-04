@@ -65,7 +65,7 @@ workflows:
               ignore: /.*/
       - deploy-plugin:
           context:
-            - db8970fb-32b1-48ef-9dad-9ec8085f6b55
+            - fullstorydev mobile projects
           requires:
             - hold
           filters:
