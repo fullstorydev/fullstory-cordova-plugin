@@ -64,6 +64,8 @@ workflows:
             branches:
               ignore: /.*/
       - deploy-plugin:
+          context:
+            - fullstorydev mobile projects
           requires:
             - hold
           filters:
